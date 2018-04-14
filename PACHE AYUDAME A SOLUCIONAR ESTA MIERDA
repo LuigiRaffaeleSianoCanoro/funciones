@@ -1,0 +1,162 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "pila.h"
+
+/**Hacer una función que pida la cantidad de productos
+comprados por el cliente y el precio de por unidad y retorne ambos.
+(Ojo, solo puede haber un return y sólo puede retornar un valor, pensar bien).
+*/
+
+Pila ingresarVenta()
+{
+    int cantidad;
+    int precio;
+    Pila cantidadYPrecio;
+    inicpila(&cantidadYPrecio);
+
+    printf("Ingrese la cantidad de productos\n");
+    scanf(&cantidad);
+    printf("Ingrese el precio del productos\n");
+    scanf(&precio);
+
+    apilar(&cantidadYPrecio,cantidad);
+    apilar(&cantidadYPrecio,precio);
+
+    return cantidadYPrecio;
+
+}
+
+/**Hacer una función que reciba como parámetro,
+la cantidad de productos y el precio y retorne el monto total de la venta.
+*/
+
+float montoDeLaVenta(Pila x)
+{
+    int cantidad;
+    float precio;
+    float total = 0;
+
+    precio = desapilar(&x);
+    cantidad = desapilar(&x);
+
+
+    total = (precio * cantidad);
+    return total;
+}
+
+/**Una función para determinar el descuento aplicado (si es que tiene).
+ Por parámetro pasa, el monto total de la compra y la cantidad de producto comprado.
+  Si el monto de la compra supera los 1000$ y son más de 10 productos,
+   tiene un descuento del 15%, si la compra supera los 2000$
+    y la cantidad de productos es 25 o más, tiene un descuento del 20%,
+     si no cumple ninguno de los requisitos no se le aplica descuento alguno.
+*/
+
+float valorDescuento(Pila x)
+{
+    int cantidad;
+    float precio;
+    float total = 0;
+    float descuento=0;
+
+    precio = desapilar(&x);
+    cantidad = desapilar(&x);
+
+
+
+    if(cantidad>24 && precio>2000)
+    {
+
+        total = total = (precio * cantidad);
+        descuento = total*0.2;
+    }
+    else if(cantidad<24 && precio<2000 &&cantidad>9 && precio>1000)
+    {
+        total = total = (precio * cantidad);
+        descuento = total*0.1;
+    }
+    else
+    {
+        descuento = 0;
+    }
+
+    return descuento;
+}
+
+/**Hacer una función que muestre por pantalla la
+factura de compra. Ejemplo:
+Empresa “pirulo”
+Cantidad de productos …………………….. 12 u.
+Precio por producto ………………………… $ 200
+Total parcial …………………………………. $ 2400
+Descuento aplicado ……………………….... -$ 360
+Monto a pagar ……………………………….. $ 2040
+*/
+
+void facturar(Pila x)
+{
+    int cantidad;
+    float precio;
+    float total = 0;
+    float descuento=0;
+    float totalParcial = 0;
+    float totalLiquido = 0;
+
+
+
+    totalLiquido =  montoDeLaVenta(&x) - valorDescuento(&x);
+
+    printf("Empresa La Cosa Nostra");
+    printf("Cantidad de productos ……………………..%i ",cantidad);
+    printf("Precio por producto ………………………… %.2f",precio);
+   printf("Total parcial …………………………………. %.2f",montoDeLaVenta(&x));
+    printf("Descuento aplicado ……………………….... -%.2f", valorDescuento(&x));
+    printf("Monto a pagar ……………………………….. %.2f",totalLiquido(&x));
+
+
+}
+
+
+/**Una función que realice una venta (tiene que llamar a todas las anteriores)*/
+
+void hacerVenta()
+{
+    char control;
+    int cantidad;
+    float precio;
+    float facturacionDelDia ;
+    Pila cantidadYPrecio;
+    Pila aux;
+    inicpila(&cantidadYPrecio);
+    inicpila(&aux);
+    facturacionDelDia = 0;
+
+    control = 's'
+
+
+              do
+                  while(control =='s')
+        {
+            cantidadYPrecio = ingresarVenta()
+                              facturacionDelDia += montoDeLaVenta(&cantidadYPrecio)-valorDescuento(&cantidadYPrecio);
+
+            precio += desapilar(&x);
+            cantidad += desapilar(&x);
+
+            facturar(Pila x)
+            printf("Desea continua? S/N");
+            fflush(stdin);
+            scanf(&control);
+        }
+
+    printf("La cantidad vendida del dia fue %i",cantidad);
+    printf("La facturacion del dia fue %.2f",facturacionDelDia);
+}
+
+int main()
+{
+
+    hacerVenta();
+
+    return 0;
+}
